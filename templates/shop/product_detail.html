@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    {% if object.image %}
+        <img class="product__image" src="{{ object.image.url }}">
+    {% else %}
+        Изображение отсутствует
+    {% endif %}
+    <table>
+    <tr>
+        <td>Описание</td>
+        <td><pre>{{ object.description }}</pre></td>
+    </tr>
+    <tr>
+        <td>Цена</td>
+        <td>{{ object.price }}</td>
+    </tr>
+    </table>
+    <form action="{% url 'add_to_cart' object.slug %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="submit" value="add">Добавить в корзину</button>
+    </form>
+{% endblock %}
